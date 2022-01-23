@@ -7,7 +7,7 @@ The <b> PPG EduKit </b> is an evaluation platform aiming to acquire the PPG sign
 ![EduKit_Picture](https://user-images.githubusercontent.com/24388880/150654604-58d1e7ed-1703-4d63-a5f6-fa29669c30ae.PNG)
 
 
-The PPG EduKit platform can be used as a shield for any Arduino board as long as the microcontroller runs with a logic level voltage of 3V3. <b> Do not use the PPG EduKit with microcontrollers that have a logic level voltage of 5V, like the Arduino UNO. </b> The platform can be also used with CY8CPROTO-063-BLE Prototyping Kit (Cypress/Infineon) using the bridge adaptor provided (the Gerber files can be found <a href="Others/Adapter_Board">here</a>).
+The PPG EduKit platform can be used as a shield for any Arduino board as long as the microcontroller runs with a logic level voltage of 3V3. <b> Do not use the PPG EduKit with microcontrollers that have a logic level voltage of 5V, like the Arduino UNO. </b> The platform can be also used with CY8CPROTO-063-BLE Prototyping Kit (Cypress/Infineon) using the bridge adaptor.
 
 # Repository structure
 
