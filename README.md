@@ -13,7 +13,7 @@ The PPG EduKit platform can be used as a shield for any Arduino board as long as
 
 <a href="Arduino/"> Arduino directory</a> : includes the PPG EduKit Arduino library and a number of guiding labs using the library package.
 
-<a href="PSOC/"> PSOC directory</a> : TBA
+<a href="PSOC/"> PSOC directory</a> : includes the PSOC libraries and a number of guiding labs using the library package.
 
 <a href="GUI_Application/"> GUI_Application directory</a> : TBA
 
