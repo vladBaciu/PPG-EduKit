@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="image">
+    <file>ppg_edukit_logo_app2.PNG</file>
+  </qresource>
+</RCC>
