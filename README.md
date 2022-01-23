@@ -19,6 +19,4 @@ The PPG EduKit platform can be used as a shield for any Arduino board as long as
 
 <a href="Others/"> Others directory</a> : contains platform related documents and datasheets.
 
-
-
-
+![IMG_6443__online-video-cutter_com__AdobeCreativeCloudExpress](https://user-images.githubusercontent.com/24388880/150688649-eb10124e-2acd-44b6-abc6-9c9da6b65890.gif) ![logo](https://user-images.githubusercontent.com/24388880/150688874-47fda6dc-76bc-4e11-b990-43bc88ff3941.jpg)
