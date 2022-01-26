@@ -2,7 +2,7 @@
 
 <b> Common directory </b>: contains the PPG EduKit software packages. 
 
-<b> Solutions directory </b> Includes the PSoc Creator projects (v4.4).
+<b> Solutions directory </b> Includes the PSoC Creator projects (v4.4).
 
 <b> Lab1 directory </b>: Lab1 helps the user to understand the library architecture by integrating the support for MAX30205 temperature sensor. 
 For this lab another code base is provided inside the directory, since the library provided in the <b> common </b> directory has already implemented this functionality.
@@ -16,4 +16,4 @@ ADC readings and push buttons into a final application that displays the PPG sig
 
 <b> Lab5 directory </b>: Lab5 introduces the SpO2 measurement and different methods to compute the oxygen saturation (embedded + Matlab script)
 
-<b> Lab6 directory </b>: Lab6 includes the BLE configuration for the PSOC board and a generic application on how to write/read data over BLE.
+<b> Lab6 directory </b>: Lab6 includes the BLE configuration for the PSoC board and a generic application on how to write/read data over BLE.
