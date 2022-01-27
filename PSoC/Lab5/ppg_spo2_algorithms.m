@@ -1,8 +1,3 @@
-%% Exploit PPG signal to get heart rate and SpO2 level
-% Friendly to embedded 
-% Thinh Nguyen 
-% mecheng.hn@gmail.com
-% THIS ONE IS NOT OPTIMIZED. DO NOT USE FOR COMMERCIAL
 
 %% Start
 clear all
@@ -23,14 +18,14 @@ uch_spo2_table =[ 95, 95, 95, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98
 
 
 
-[X1,X2]=textread('ir.dat','%s %s');
+[X1,X2]=textread('custom.log','%d %d');
 window_size = 310;
 window = 1;
 data_length = 0;
 overlapping_window_size  = 300;
 SpO2_val = [];
 
-for loop=1:(length(X1)/window_size) + 80
+for loop=1:(length(X1)/window_size) + 30
     if(window == 1)
         data_st = data_length + 1;
         data_length = (window * window_size); % Data length
@@ -40,14 +35,9 @@ for loop=1:(length(X1)/window_size) + 80
     end
     fprintf('Test %i, %i \n', data_st, data_length);
     for i=data_st:data_length
-        X(i,1)=hex2dec(X1(i))/hex2dec('7FFFFF'); % RED led
-        if X(i,1)> 1
-            X(i,1)=1 - X(i,1);
-        end
-        X(i,2)=hex2dec(X2(i))/hex2dec('7FFFFF'); % IR
-        if X(i,2)> 1
-            X(i,2)=1- X(i,2);
-        end
+        X(i,1)=X1(i); 
+        X(i,2)=X2(i);
+  
     end
 
     %% Data input for Heart rate and SpO2 calculation
@@ -229,21 +219,6 @@ end
 
 % NEXT
 
-[X1,X2]=textread('ir.dat','%s %s');
-
-for i=1:length(X1)
-    X(i,1)=hex2dec(X1(i));
-    if X(i,1)> hex2dec('7FFFFF')   %Dont pay attention to this part. It is the conversion of acquired HEX value into useful decimal value
-        X(i,1)=hex2dec('7FFFFF') - X(i,1);
-    end
-    X(i,2)=hex2dec(X2(i)); 
-    if X(i,2)> hex2dec('7FFFFF')
-        X(i,2)=hex2dec('7FFFFF')- X(i,2);
-    end
-end
-
-
-
 
 
 
@@ -255,13 +230,7 @@ end
 figure(3)
 samples = 1:length(X1);
 t = samples/fs;
-ax1 = subplot(2,1,1)
-plot(t,X(:,1),'r')
-title("PPG signal")
-hold on
-plot(t,X(:,2),'blue')
-legend('Red wavelength', 'IR wavelength')
-ylim([1200 3200])
+
 ax2 = subplot(2,1,2)
 samples = 1:length(SpO2_val);
 t = samples/fs;
