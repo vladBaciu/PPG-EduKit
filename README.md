@@ -25,10 +25,12 @@ The PPG EduKit platform can be used as a shield for any Arduino board as long as
 
 ## Requirements
 
-In order to use the GUI application, please install the requirements list from `.\GUI Application` directory. 
+In order to use the GUI application, please install the following packages: 
 ```bash
-cd .\GUI Application
-pip install -r requirements.txt
+pip install pyqtgraph==0.12.3
+pip install numpy==1.19.5
+pip install PyQt5==5.15.6
+pip install pyserial==3.5
 ```
 
 ## Contact:
