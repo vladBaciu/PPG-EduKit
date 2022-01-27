@@ -27,7 +27,7 @@
 
 /* @brief Include custom libraries for PPG EduKit */
 #include "TLC5925.h"
-#include "AD5273BRJZ1.h"
+#include "AD5273.h"
 
 
 /*==================================================================================================
