@@ -46,6 +46,12 @@ typedef enum
     DEBUG_FRAME = 0xF2
 } frameType_t;
 
+typedef enum
+{
+    CUSTOM_SENSOR = 0x64,
+    MAX_SENSOR = 0x21
+} sensorType_t;
+
 /*==================================================================================================
  *                                STRUCTURES AND OTHER TYPEDEFS
  *  ==============================================================================================*/
@@ -57,11 +63,12 @@ typedef struct
 }debugType_t;
 
 
+
 /* @brief Store params for differend kind of serial frames */
 typedef struct
 {
   frameType_t frameType;
-  uint8_t sensor;
+  sensorType_t sensor;
   union
   {
     uint8_t hr_spo2[3];
