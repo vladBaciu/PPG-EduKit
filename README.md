@@ -50,6 +50,11 @@ pip install PyQt5==5.15.6 --user
 pip install pyserial==3.5 --user
 ```
 
+## Known issues:
+1. OLED display seems to not work for all the USB ports. Works only when the board is connected to an USB 3.0 port. It has been seen that on USB 2.0, during init function call, in debug mode there is a warning about a dip(brownout) in the supply voltage of the board.
+2. I2C communication produces some noise on the PPG signal. With careful sampling this can be avoided.
+3. TIA amplifier does not have compensation. Might oscillate.
+4. NeoPixel might light up during serial communication. 
 
 ## Contact:
 
