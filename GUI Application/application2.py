@@ -160,9 +160,9 @@ class App2_Gui(QtWidgets.QMainWindow):
                                              background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(83, 116, 249, 255), stop:1 rgba(255, 255, 255, 255));}')
             self.pauseButton.setText("Pause")
             plotUpdateFlag = True
-            self.currentSlider.show()
-            self.currentLabel.show()
-            self.currentTicks.show()
+            #self.currentSlider.show()
+            #self.currentLabel.show()
+            #self.currentTicks.show()
             self.ir_button.show()
             self.red_button.show()
             self.green_button.show()
@@ -182,10 +182,10 @@ class App2_Gui(QtWidgets.QMainWindow):
         self.red_button.show()
         self.green_button.show()
         self.disconnectButton.show()
-        self.pauseButton.show()
-        self.currentSlider.show()
-        self.currentLabel.show()
-        self.currentTicks.show()
+        #self.pauseButton.show()
+        #self.currentSlider.show()
+        #self.currentLabel.show()
+        #self.currentTicks.show()
         self.connectButton.hide()
         appSerialHandler = self.serialHandler
         deviceDisconnected = False
