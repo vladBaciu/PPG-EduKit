@@ -12,13 +12,6 @@ from PyQt5 import QtGui
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import QTime, QTimer
 
-y_range_max1 = 120
-y_range_min1 = 0
-
-y_range_max2 = 58000
-y_range_min2 = 55000
-
-
 plot_size = 300
     
 class  PlotWidget(pg.GraphicsWindow):
@@ -45,8 +38,6 @@ class  PlotWidget(pg.GraphicsWindow):
         
         self.ax1.setLabel('Samples', **labelStyle)
         self.ax1_y.setLabel('Amplitude', **labelStyle)
-        self.p1.setYRange(0, y_range_max1)
-        self.p1.setXRange(0, plot_size)
         self.p1.enableAutoRange(pg.ViewBox.XAxis)
         self.data1 = np.zeros(plot_size)
         self.time_axis = np.zeros(plot_size)
@@ -63,8 +54,6 @@ class  PlotWidget(pg.GraphicsWindow):
                 
         self.ax2.setLabel('Samples', **labelStyle)
         self.ax2_y.setLabel('Amplitude', **labelStyle)
-        self.p2.setYRange(0, y_range_max2)
-        self.p2.setXRange(0, plot_size)
         self.p2.enableAutoRange(pg.ViewBox.XAxis)
         self.data2 = np.zeros(plot_size)
         self.time_axis = np.zeros(plot_size)
@@ -92,27 +81,16 @@ class  PlotWidget(pg.GraphicsWindow):
             self.ptr2 = 0
     
         if application2.plotUpdateFlag is True and application2.deviceDisconnected is False:
-            maxValue1 = max(self.data1[plot_size-20:-1])
-            
-            if(maxValue1 <= y_range_max1):
-                self.p1.setYRange(y_range_min1,y_range_max1)
-            else:
-                self.p1.setYRange(maxValue1 - y_range_max1 ,maxValue1 + y_range_max1)
-            
-            if(maxValue1 <= y_range_min1):
-                self.p1.setYRange(0,y_range_max1)
-                
-    
-            maxValue2 = max(self.data2[plot_size-20:-1])
-            
-            
-            if(maxValue2 <= y_range_max2):
-                self.p2.setYRange(y_range_min2,y_range_max2)
-            else:
-                self.p2.setYRange(maxValue2 - 400 ,maxValue2 + 400)
-            
-            if(maxValue2 <= y_range_min2):
-                self.p2.setYRange(maxValue2 - 400 ,maxValue2 + 400)
+
+            maxValue1 = max(self.data1[0:-1])
+            minValue1 = min(self.data1[0:-1])
+            av1 = sum(self.data1)/len(self.data1)
+            self.p1.setYRange(av1 - (maxValue1 - minValue1), av1 + (maxValue1 - minValue1))
+
+            maxValue2 = max(self.data2[0:-1])
+            maxValue1 = min(self.data2[0:-1])
+            av2 = sum(self.data2)/len(self.data2)
+            self.p2.setYRange(av2 - (maxValue2 - maxValue1), av2 + (maxValue2 - maxValue1))
 
             if((application2.appSerialHandler != None) and application2.appSerialHandler.is_open()):
                 application2.appSerialHandler.readAndProcessFrame()
