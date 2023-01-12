@@ -70,16 +70,12 @@ class  CustomWidget(pg.GraphicsWindow):
         if application1.plotUpdateFlag is True and application1.deviceDisconnected is False:
             
             application1.deviceDisconnected =  application1.appSerialHandler.deviceDisconnected
+            
+            maxValue = max(self.data1[0:-1])
+            minValue = min(self.data1[0:-1])
+            av = sum(self.data1)/len(self.data1)
+            self.p1.setYRange(av - (maxValue - minValue), av + (maxValue - minValue))
 
-            maxValue = max(self.data1[plot_size-20:-1])
-            
-            if(maxValue <= y_range_max):
-                self.p1.setYRange(y_range_min,y_range_max)
-            else:
-                self.p1.setYRange(maxValue - y_range_max ,maxValue + y_range_max)
-            
-            if(maxValue <= y_range_min):
-                self.p1.setYRange(0,y_range_max)
             if((application1.appSerialHandler != None) and application1.deviceDisconnected is False):
                 application1.appSerialHandler.readAndProcessFrame()
                 
