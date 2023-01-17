@@ -179,7 +179,7 @@ uint8_t AD5273_WriteData(uint8_t val)
     uint32_t  errorStatus = TRANSFER_ERROR;
     
     /* RDAC has 64 contact points, the value can not exceed this value */
-    if(val > 64) goto exit;
+    if(val > 64u) val = 64u;
     
     /* Send I2C start condition */
     errorStatus = I2C_BUS_MasterSendStart(AD5273_ADDRESS, CY_SCB_I2C_WRITE_XFER, I2C_TIMEOUT);

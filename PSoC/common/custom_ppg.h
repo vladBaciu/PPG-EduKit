@@ -32,13 +32,14 @@
  *  ==============================================================================================*/
 
 /* @brief PPG sampling rate defined by Timer_AdcRead period */
-#define CUSTOM_PPG_FREQS                  (125UL)
+#define CUSTOM_PPG_FREQS                  (128UL)
 /* @brief PPG buffer length used to compute HR or SpO2 */
-#define CUSTOM_PPG_BUFFER_LENGTH              (512U)
-#define CUSTOM_NUMBER_OF_OVERLAPPING_SAMPLES  (480U)  
+#define CUSTOM_PPG_BUFFER_LENGTH          (320U)
 /* @brief Min number of samples between two peaks */
-#define CUSTOM_SAMPLES_BETWEEN_PEAKS  (60UL)
+#define CUSTOM_SAMPLES_BETWEEN_PEAKS      (50UL)
 
+/* @brief AMP channel index */
+#define ADC_CHANNEL_0_INV_AMP               0
 /*==================================================================================================
  *                                             ENUMS
  *  ==============================================================================================*/
@@ -55,9 +56,9 @@
  *                                GLOBAL VARIABLE DECLARATIONS
  *  ==============================================================================================*/
 
-extern volatile int32_t CUSTOM_PPG_bufferGreen[CUSTOM_PPG_BUFFER_LENGTH];
-extern volatile int32_t CUSTOM_PPG_bufferRed[CUSTOM_PPG_BUFFER_LENGTH];
-extern volatile int32_t CUSTOM_PPG_bufferIR[CUSTOM_PPG_BUFFER_LENGTH];
+extern volatile uint16_t CUSTOM_PPG_bufferGreen[CUSTOM_PPG_BUFFER_LENGTH];
+extern volatile uint16_t CUSTOM_PPG_bufferRed[CUSTOM_PPG_BUFFER_LENGTH];
+extern volatile uint16_t CUSTOM_PPG_bufferIR[CUSTOM_PPG_BUFFER_LENGTH];
 extern volatile uint16_t CUSTOM_PPG_bufferHead;
 extern volatile bool bBufferProcessed;
 
@@ -74,6 +75,7 @@ void CUSTOM_PPG_InterruptHandler_FillBuff(void);
 void printadcval(void);
 void CUSTOM_PPG_InitAndStartTimer_AdcRead(void);
 void CUSTOM_PPG_AssignISR_AdcRead(void);   
+bool CUSTOM_checkForBeat(uint32_t sample);
 
 #endif /* CUSTOM_PPG_H_ */    
 /* [] END OF FILE */

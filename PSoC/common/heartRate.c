@@ -95,7 +95,7 @@ uint8_t offset = 0;
  *              A running average of four samples is recommended for display 
  *              on the screen.
  **************************************************************************/
-bool checkForBeat(int32_t sample)
+bool checkForBeat(uint32_t sample)
 {
   bool beatDetected = false;
 
@@ -108,8 +108,9 @@ bool checkForBeat(int32_t sample)
 
   //  Process next data sample
   IR_Average_Estimated = averageDCEstimator(&ir_avg_reg, sample);
-  IR_AC_Signal_Current = lowPassFIRFilter(sample - IR_Average_Estimated);
-
+  //IR_AC_Signal_Current = lowPassFIRFilter(sample - IR_Average_Estimated);
+  IR_AC_Signal_Current = (sample - IR_Average_Estimated);
+  
   //  Detect positive zero crossing (rising edge)
   if ((IR_AC_Signal_Previous < 0) & (IR_AC_Signal_Current >= 0))
   {
