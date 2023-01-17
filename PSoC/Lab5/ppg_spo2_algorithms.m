@@ -4,6 +4,8 @@ clear all
 
 %% Load sample data
 
+input_file = "data.log"
+
 uch_spo2_table =[ 95, 95, 95, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, ...
                   99, 99, 99, 99, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, ...
                   100, 100, 100, 100, 99, 99, 99, 99, 99, 99, 99, 99, 98, 98, 98, 98, 98, 98, 97, 97, ...
@@ -16,16 +18,14 @@ uch_spo2_table =[ 95, 95, 95, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98
                   3, 2, 1] ;
 
 
-
-
-[X1,X2]=textread('custom.log','%d %d');
-window_size = 310;
+[X1,X2]=textread(input_file,'%d %d');
+window_size = 300;
 window = 1;
 data_length = 0;
-overlapping_window_size  = 300;
+overlapping_window_size  = 290;
 SpO2_val = [];
 
-for loop=1:(length(X1)/window_size) + 30
+for loop=1:(length(X1)/window_size) + 80
     if(window == 1)
         data_st = data_length + 1;
         data_length = (window * window_size); % Data length
@@ -34,12 +34,11 @@ for loop=1:(length(X1)/window_size) + 30
         data_length =  data_length + (window_size - overlapping_window_size); % Data length
     end
     fprintf('Test %i, %i \n', data_st, data_length);
-    for i=data_st:data_length
-        X(i,1)=X1(i); 
-        X(i,2)=X2(i);
-  
-    end
-
+    try 
+        for i=data_st:data_length
+            X(i,1)=X1(i); 
+            X(i,2)=X2(i);
+        end
     %% Data input for Heart rate and SpO2 calculation
     y1 = X(data_st:data_length,1); %RED
     y2 = X(data_st:data_length,2); %IR 
@@ -143,6 +142,7 @@ for loop=1:(length(X1)/window_size) + 30
         n_spo2_calc= uch_spo2_table(n_ratio_average);
         
         SpO2_val_met1(window) = n_spo2_calc;
+        SpO2_val_met2(window)= 104 - 17*(an_ratio(n_middle_idx)/100);
       end
   
     %% SpO2 level calculation
@@ -150,17 +150,17 @@ for loop=1:(length(X1)/window_size) + 30
     %%FFT for RED signal
     Y1 = fft(y1,NFFT);
 
-    figure(1)
-    L = NFFT;
-    hold on
-    P2 = abs(Y1/L);
-    P1 = P2(1:L/2+1);
-    P1(2:end-1) = 2*P1(2:end-1);
-    f = fs*(0:(L/2))/L;
-    plot(f,P1) 
-    title('Single-Sided Amplitude Spectrum of red channel')
-    xlabel('f (Hz)')
-    ylabel('|P1(f)|')
+    %figure(1)
+    %L = NFFT;
+    %hold on
+    %P2 = abs(Y1/L);
+    %P1 = P2(1:L/2+1);
+    %P1(2:end-1) = 2*P1(2:end-1);
+    %f = fs*(0:(L/2))/L;
+    %plot(f,P1) 
+    %title('Single-Sided Amplitude Spectrum of red channel')
+    %xlabel('f (Hz)')
+    %ylabel('|P1(f)|')
 
 
 
@@ -182,18 +182,18 @@ for loop=1:(length(X1)/window_size) + 30
     Y2 = fft(y2,NFFT);
 
     % Find local maximum in RED spectrum
-    figure(2)    
-    YY=abs(Y2(st:12));
-    hold on
-    L = NFFT;
-    P2 = abs(Y2/L);
-    P1 = P2(1:L/2+1);
-    P1(2:end-1) = 2*P1(2:end-1);
-    f = fs*(0:(L/2))/L;
-    plot(f,P1) 
-    title('Single-Sided Amplitude Spectrum of X(t)')
-    xlabel('f (Hz)')
-    ylabel('|P1(f)|')
+    %figure(2)    
+    %YY=abs(Y2(st:12));
+    %hold on
+    %L = NFFT;
+    %P2 = abs(Y2/L);
+    %P1 = P2(1:L/2+1);
+    %P1(2:end-1) = 2*P1(2:end-1);
+    %f = fs*(0:(L/2))/L;
+    %plot(f,P1) 
+    %title('Single-Sided Amplitude Spectrum of X(t)')
+    %xlabel('f (Hz)')
+    %ylabel('|P1(f)|')
 
     local_max_i=1;
     local_max=YY(1);
@@ -212,24 +212,29 @@ for loop=1:(length(X1)/window_size) + 30
     if(104 - 28*R > 100)
         SpO2_val(window) = 100;
     else
-        SpO2_val(window) = 104 - 28*R;
+        SpO2_val(window) = 104 - 17*R;
     end
     window = window + 1;
+
+    catch
+         warning('Last chuck of data discarded');
+    end
 end
 
 % NEXT
 
-
-
-
-
-
-
-
+[X1,X2]=textread(input_file,'%d %d');
 
 figure(3)
-samples = 1:length(X1);
+samples = 1:length(X(:,1));
+
 t = samples/fs;
+ax1 = subplot(2,1,1)
+plot(t,X(:,1),'r')
+title("PPG signal")
+hold on
+plot(t,X(:,2),'blue')
+legend('Red wavelength', 'IR wavelength')
 
 ax2 = subplot(2,1,2)
 samples = 1:length(SpO2_val);
@@ -238,6 +243,8 @@ title("Oxygen saturation")
 plot(t*(length(X1)/length(SpO2_val)),SpO2_val, 'green');
 hold on
 plot(t*(length(X1)/length(SpO2_val)),SpO2_val_met1,'blue');
-ylim([90 110])
-legend('FFT method', 'Time domain method');
+hold on
+plot(t*(length(X1)/length(SpO2_val)),SpO2_val_met2,'red');
+
+legend('FFT method', 'Time domain method - lookup table', 'Time domain method - linear aproximation');
 %% END
