@@ -28,7 +28,7 @@ If you find any of the ideas/codes useful for your research, please cite our pap
 
 <a href="PSoC/"> PSoC directory</a> : includes the PSoC libraries and a number of guiding labs using the library package.
 
-<a href="GUI_Application/"> GUI_Application directory</a> : contains the PPG EduKit GUI application. There are a number of two applications implemented that allows the user to visualize the PPG signals.
+<a href="GUI Application/"> GUI_Application directory</a> : contains the PPG EduKit GUI application. There are a number of two applications implemented that allows the user to visualize the PPG signals.
 
 <a href="Others/"> Others directory</a> : contains platform related documents and datasheets.
 
