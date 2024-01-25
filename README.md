@@ -3,7 +3,6 @@
 
 The <b> PPG EduKit </b> is an evaluation platform aiming to acquire the PPG signal from the finger(s) for research and educational purposes. The PPG EduKit gives the user full control and understanding over the different steps needed to acquire,  condition, visualize  and  process  the  raw  PPG  signals  which  are  then  used  to  extract  meaning-ful  physiological  information.  The  modular  approach  of  the  platform  facilitates  the support of different embedded devices such as Arduino and PSoC 6 platform, to perform digital signal processing operations needed for the multiple PPG applications.  The components of the PPG EduKit are grouped in two main blocks:  the analog front-end and the digital back-end.
 
-
 ![EduKit_Picture](https://user-images.githubusercontent.com/24388880/150654604-58d1e7ed-1703-4d63-a5f6-fa29669c30ae.PNG)
 
 
@@ -49,6 +48,11 @@ pip install numpy==1.19.5 --user
 pip install PyQt5==5.15.6 --user
 pip install pyserial==3.5 --user
 ```
+
+
+## Machine learning
+
+How to use neural networks with PPG-EduKit: https://github.com/vladBaciu/ML-PPG-EduKit
 
 ## Known issues:
 1. OLED display seems to not work for all the USB ports. Works only when the board is connected to an USB 3.0 port. It has been seen that on USB 2.0, during init function call, in debug mode there is a warning about a dip(brownout) in the supply voltage of the board.
